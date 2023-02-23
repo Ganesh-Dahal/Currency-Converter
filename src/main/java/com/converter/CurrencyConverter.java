@@ -12,7 +12,6 @@ import java.util.Objects;
 import javax.swing.*;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class CurrencyConverter {
   private JTextField amountInput;
   private JComboBox<String> fromInput;
@@ -30,7 +29,6 @@ public class CurrencyConverter {
       try {
         amountOutput.setText(Double.toString(convertCurrency(getAmount(), getFrom(), getTo())));
       } catch (Exception ex) {
-        log.error("The form was filled out incorrectly: " + ex.getMessage());
         JOptionPane.showMessageDialog(formPanel, "The form was filled out incorrectly");
       }
     });
@@ -50,7 +48,6 @@ public class CurrencyConverter {
       File file = new File("src/main/resources/currencies.json");
       return objectMapper.readValue(file, new TypeReference<>() {});
     } catch (IOException e) {
-      log.error("Failed to read currencies: " + e.getMessage());
     }
     return Collections.emptyList();
   }
@@ -61,7 +58,6 @@ public class CurrencyConverter {
       File file = new File("src/main/resources/currencyToOneDollar.json");
       return objectMapper.readValue(file, new TypeReference<>() {});
     } catch (IOException e) {
-      log.error("Failed to read currencies values: " + e.getMessage());
     }
     return Collections.emptyMap();
   }
@@ -77,7 +73,6 @@ public class CurrencyConverter {
     try {
       Double.valueOf(amountInput.getText());
     } catch (Exception e) {
-      log.error("Provided value must be double: " + e.getMessage());
       throw new WrongValueException("Wrong value provided in amount field!");
     }
     return Double.valueOf(amountInput.getText());
